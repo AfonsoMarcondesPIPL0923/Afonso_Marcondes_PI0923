@@ -23,7 +23,10 @@ int main(){
     
     float total = compra * desconto;
 
-    printf("\nNome: %s\nValor da Compra: %.2f\nDesconto: %d%%\nTotal a Pagar: %.2f\n", nome, compra, &desconto, total);
+    printf("\nNome: %s", nome);
+    printf("\nValor da Compra: %.2f", compra);
+    printf("\nDesconto: %.2f%%", 100 - (desconto * 100));
+    printf("\nTotal a Pagar: %.2f\n",total);
 
     return 0;
 }
