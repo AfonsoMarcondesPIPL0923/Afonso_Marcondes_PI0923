@@ -60,7 +60,7 @@ def calculadora():
             print(num1, '+', num2, '=', num1 + num2)
         case '-':
             print(num1, '-', num2, '=', num1 - num2)
-        case 'x':
+        case 'x' | 'X' | '*':
             print(num1, 'x', num2, '=', num1 * num2)
         case '/':
             print(num1, '/', num2, '=', num1 / num2)
