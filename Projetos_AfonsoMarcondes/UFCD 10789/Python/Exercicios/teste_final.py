@@ -1,6 +1,4 @@
 def detalhes(num):
-    
-    
     for i in range(num, 0, -1):
         
         print(f"******** {i} *****************************")
@@ -39,8 +37,12 @@ def detalhes(num):
 
 # Calculadora Simples
 def calculadora():
-    num1 = int(input("\nInsira o 1º numero: "))
-    
+    # O try garante que não sejam inseridos valores invalidos. #
+    try:
+        num1 = int(input("\nInsira o 1º numero: "))
+    except ValueError:
+            print("Entrada inválida! Insira um número válido.")
+            
     while True:
         ls = ['+', '-', 'x', '/', 'X', '*']
         opr = input("[+] [-] [x] [/]: ")
@@ -48,9 +50,11 @@ def calculadora():
             print("Opção Invalida")
         else:
             break
-
-    num2 = int(input("Insira o 2º numero: "))
-    
+    try:
+        num2 = int(input("Insira o 2º numero: "))
+    except ValueError:
+            print("Entrada inválida! Insira um número válido.")
+            
     match opr:
         case '+':
             print(num1, '+', num2, '=', num1 + num2)
@@ -95,13 +99,23 @@ while True:
     print("*   3 - Tabuada            *")
     print("*   4 - Sair               *")
     print("*                          *")
-    print("*******************************\n")
+    print("****************************\n")
     
     escolha = int(input("Insira a sua escolha: "))
     
     match escolha:
         case 1:
-            num = int(input("Insira um numero: "))
+            # Garante que o numero esteja entre 1 e 30 000 #
+            # e que não sejam inseridos valores invalidos. #
+            while True:
+                try:
+                    num = int(input("Insira um numero: "))
+                    if num < 1 or num > 30000:
+                        continue
+                    break
+                
+                except ValueError:
+                    print("Entrada inválida! Insira um número válido.")
             detalhes(num)
             
         case 2:
