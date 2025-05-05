@@ -59,7 +59,7 @@ int main(){
                     printf("\n\n Aluno %d: \n", i + 1);
                     printf("\nNome: %s", alunos[i].nome);
                     printf("\nApelido: %s", alunos[i].apelido);
-                    printf("\nMatricula: %d", &alunos[i].matricula);
+                    printf("\nMatricula: %d", alunos[i].matricula);
                     printf("\nNota: %.2f", alunos[i].nota);
                 }
                 break;
