@@ -35,7 +35,7 @@ int main() {
 
     while (1) {
         exibir_menu();
-        printf("Insira a Sua Escolha: ");
+        printf("Insira a sua escolha: ");
         scanf("%s", comando);
 
         if (strcasecmp(comando, "RC") == 0) {
@@ -56,7 +56,7 @@ int main() {
             finalizar_programa(&agenda);
             break;
         } else {
-            printf("Comando inválido. Tente novamente.\n");
+            printf("Comando invalido. Tente novamente.\n");
         }
     }
 
@@ -64,7 +64,7 @@ int main() {
 }
 
 void exibir_menu() {
-    printf("\nComandos disponíveis:\n");
+    printf("\nComandos disponiveis:\n");
     printf(" - RC   - Registrar Contactos - <Nome> <Apelido> <Telefone> <Email> <Observacoes>\n");
     printf(" - PC   - Procurar Contactos  - <Nome>\n");
     printf(" - LC   - Listar Contactos\n");
@@ -77,7 +77,7 @@ void exibir_menu() {
 
 void registrar_contato(Agenda *agenda) {
     if (agenda->total >= MAX_CONTATOS) {
-        printf("Agenda cheia. Não é possível adicionar mais contactos.\n");
+        printf("Agenda cheia. Nao e possível adicionar mais contactos.\n");
         return;
     }
 
@@ -93,7 +93,7 @@ void registrar_contato(Agenda *agenda) {
 
     for (int i = 0; i < agenda->total; i++) {
         if (strcasecmp(agenda->contatos[i].nome, novo.nome) == 0) {
-            printf("Contacto existente com o número %d\n", i + 1);
+            printf("Contacto existente com o numero %d\n", i + 1);
             return;
         }
     }
@@ -169,10 +169,10 @@ void atualizar_contato(Agenda *agenda) {
                         printf("Contacto atualizado com sucesso\n");
                         break;
                     case 5:
-                        printf("A sair do menu de atualização...\n");
+                        printf("A sair do menu de atualizacao...\n");
                         break;
                     default:
-                        printf("Opcao inválida.\n");
+                        printf("Opcao invalida.\n");
                 }
 
             } while (opcao != 5);
@@ -237,7 +237,7 @@ void importar_contactos(Agenda *agenda) {
     const char *userProfile = getenv("USERPROFILE");
 
     if (userProfile == NULL) {
-        printf("Erro: variável de ambiente USERPROFILE não está definida.\n");
+        printf("Erro: variavel de ambiente USERPROFILE não está definida.\n");
         return;
     }
 
