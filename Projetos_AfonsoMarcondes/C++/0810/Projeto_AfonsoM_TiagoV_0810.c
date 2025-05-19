@@ -56,7 +56,7 @@ int main() {
             finalizar_programa(&agenda);
             break;
         } else {
-            printf("Comando inválido. Tente novamente.\n");
+            printf("Comando invalido. Tente novamente.\n");
         }
     }
 
@@ -64,7 +64,7 @@ int main() {
 }
 
 void exibir_menu() {
-    printf("\nComandos disponíveis:\n");
+    printf("\nComandos disponiveis:\n");
     printf(" - RC   - Registrar Contactos - <Nome> <Apelido> <Telefone> <Email> <Observacoes>\n");
     printf(" - PC   - Procurar Contactos  - <Nome>\n");
     printf(" - LC   - Listar Contactos\n");
@@ -77,7 +77,7 @@ void exibir_menu() {
 
 void registrar_contato(Agenda *agenda) {
     if (agenda->total >= MAX_CONTATOS) {
-        printf("Agenda cheia. Não é possível adicionar mais contactos.\n");
+        printf("Agenda cheia. Não é possivel adicionar mais contactos.\n");
         return;
     }
 
@@ -93,7 +93,7 @@ void registrar_contato(Agenda *agenda) {
 
     for (int i = 0; i < agenda->total; i++) {
         if (strcasecmp(agenda->contatos[i].nome, novo.nome) == 0) {
-            printf("Contacto existente com o número %d\n", i + 1);
+            printf("Contacto existente com o numero %d\n", i + 1);
             return;
         }
     }
@@ -163,16 +163,16 @@ void atualizar_contato(Agenda *agenda) {
                         printf("Contacto atualizado com sucesso\n");
                         break;
                     case 4:
-                        printf("Novas observacoes (máximo %d): ", MAX_OBSERVACOES);
+                        printf("Novas observacoes (maximo %d): ", MAX_OBSERVACOES);
                         scanf(" %50[^\n]", agenda->contatos[i].observacoes);
                         agenda->contatos[i].observacoes[MAX_OBSERVACOES] = '\0';
                         printf("Contacto atualizado com sucesso\n");
                         break;
                     case 5:
-                        printf("A sair do menu de atualização...\n");
+                        printf("A sair do menu de atualizacao...\n");
                         break;
                     default:
-                        printf("Opcao inválida.\n");
+                        printf("Opcao invalida.\n");
                 }
 
             } while (opcao != 5);
@@ -206,7 +206,7 @@ void exportar_contactos(const Agenda *agenda) {
     const char *userProfile = getenv("USERPROFILE");
 
     if (userProfile == NULL) {
-        printf("Erro: variável de ambiente USERPROFILE não está definida.\n");
+        printf("Erro: variavel de ambiente USERPROFILE não esta definida.\n");
         return;
     }
 
@@ -241,7 +241,7 @@ void importar_contactos(Agenda *agenda) {
         return;
     }
 
-    snprintf(path, sizeof(path), "%s\\Desktop\\Contactos.txt", userProfile);
+    snprintf(path, sizeof(path), "%s\\Documents\\Contactos.txt", userProfile);
     FILE *f = fopen(path, "r");
 
     if (!f) {
@@ -270,4 +270,3 @@ void finalizar_programa(const Agenda *agenda) {
     printf("A guardar a agenda...\n");
     printf("Sayonara!\n");
 }
-
