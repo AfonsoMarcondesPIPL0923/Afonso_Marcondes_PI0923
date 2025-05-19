@@ -202,8 +202,15 @@ void eliminar_contato(Agenda *agenda) {
 }
 
 void exportar_contactos(const Agenda *agenda) {
-    char path[100];
-    snprintf(path, sizeof(path), "%s/Desktop/Contactos.txt", getenv("HOME"));
+    char path[200];
+    const char *userProfile = getenv("USERPROFILE");
+
+    if (userProfile == NULL) {
+        printf("Erro: variável de ambiente USERPROFILE não está definida.\n");
+        return;
+    }
+
+    snprintf(path, sizeof(path), "%s\\Desktop\\Contactos.txt", userProfile);
     FILE *f = fopen(path, "w");
 
     if (!f) {
@@ -224,9 +231,17 @@ void exportar_contactos(const Agenda *agenda) {
     printf("Exportados %d contactos para: %s\n", agenda->total, path);
 }
 
+
 void importar_contactos(Agenda *agenda) {
-    char path[100];
-    snprintf(path, sizeof(path), "%s/Desktop/Contactos.txt", getenv("HOME"));
+    char path[200];
+    const char *userProfile = getenv("USERPROFILE");
+
+    if (userProfile == NULL) {
+        printf("Erro: variável de ambiente USERPROFILE não está definida.\n");
+        return;
+    }
+
+    snprintf(path, sizeof(path), "%s\\Desktop\\Contactos.txt", userProfile);
     FILE *f = fopen(path, "r");
 
     if (!f) {
@@ -249,6 +264,7 @@ void importar_contactos(Agenda *agenda) {
     fclose(f);
     printf("Foram importados %d contactos\n", importados);
 }
+
 
 void finalizar_programa(const Agenda *agenda) {
     printf("A guardar a agenda...\n");
