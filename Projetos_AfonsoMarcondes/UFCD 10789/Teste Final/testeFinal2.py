@@ -2,7 +2,7 @@ class cliente:
     listaClientes = []
     numClientes = 0
     
-    def __init__(self, NomCli, morada, tel, nif, compra, Divfin):
+    def __init__(self, NomCli, morada, tel, nif, compra):
         cliente.numClientes += 1
         self.Numcli = cliente.numClientes
         self.NomCli = NomCli
@@ -12,17 +12,17 @@ class cliente:
         self.compra = compra
         
         # Calcular o Desconto
-        if compra > 99 and compra < 201:
-            self.Divfin = cliente.compra * 0.95
+        if self.compra > 99 and self.compra < 201:
+            self.Divfin = self.compra * 0.95
             
-        elif compra > 200 and compra < 500:
-            self.Divfin = cliente.compra * 0.90
+        elif self.compra > 200 and self.compra < 500:
+            self.Divfin = self.compra * 0.90
         
-        elif compra >= 500:
-            self.Divfin = cliente.compra * 0.85
+        elif self.compra >= 500:
+            self.Divfin = self.compra * 0.85
         
         else:
-            self.Divfin = Divfin
+            self.Divfin = self.compra
         
         # Adiciona à lista
         cliente.listaClientes.append(self)
@@ -37,18 +37,20 @@ class cliente:
             print(f"Telefone: {i.tel}")
             print(f"NIF: {i.nif}")
             print(f"Valor da Compra (Sem Desconto): {i.compra}")
-            print(f"Divida Final (Com Desconto): {i.Divfin}")
+            print(f"Divida Final (Com Desconto): {i.Divfin:.2f}")
             print("____________________________________________")
             cont += 1
             
             para = input("[para] para parar, qualquer outra tecla para continuar:")
             if para == "para" or para == "PARA":
                 break
+    
+    @classmethod
     def procurarCliente(cls, num):
-        self.num = num
-        
+        cls.num = num
+        cont = 1
         for i in cls.listaClientes:
-            if i.Numcli == num:
+            if i.Numcli == cls.num:
                 print("\n\n|Cliente Encontrado|")
                 print("\n____________________________________________")
                 print(f"|{cont}º Cliente|")
@@ -57,9 +59,10 @@ class cliente:
                 print(f"Telefone: {i.tel}")
                 print(f"NIF: {i.nif}")
                 print(f"Valor da Compra (Sem Desconto): {i.compra}")
-                print(f"Divida Final (Com Desconto): {i.Divfin}")
+                print(f"Divida Final (Com Desconto): {i.Divfin:.2f}")
                 print("____________________________________________")
-                break
+                return
+            cont += 1
         print("\n\n|Cliente Não Encontrado|")
         
 while(True):
@@ -83,9 +86,8 @@ while(True):
             tel = int(input("Telefone: "))
             nif = input("NIF: ")
             compra = int(input("Valor da Compra (Sem Desconto): "))
-            Divfin = int(input("Divida Final (Com Desconto): "))
             
-            p1 = cliente(NomCli, morada, tel, nif, compra, Divfin)
+            p1 = cliente(NomCli, morada, tel, nif, compra)
             
         case 2:
             print("____________________________________________")
@@ -93,10 +95,13 @@ while(True):
             print("\n\n")
         
         case 3:
-            proc = int(input("Insira o numero no cliente que pretende procurar: "))
-            cliente.procurarCliente(proc)
-            print("\n\n")
+            num = int(input("Insira o numero no cliente que pretende procurar: "))
+            cliente.procurarCliente(num)
+            print("\n")
             
         case 4:
             print("\n**Programa Encerrado**")
             break
+        
+        case _:
+            print("\n**Escolha Invalida**")
