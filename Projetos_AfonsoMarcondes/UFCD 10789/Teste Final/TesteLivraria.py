@@ -1,9 +1,10 @@
+# Exibir o Menu
 def mostrarMenu():
     print("\n************************************************")
     print("*               |Escolhas|                     *")
     print("*                                              *")
     print("*    1 - Cadastrar livro                       *")
-    print("*    2 - Procurar por livro                   *")
+    print("*    2 - Procurar por livro                    *")
     print("*    3 - Excluir livro                         *")
     print("*    4 - Ordenar livros                        *")
     print("*    5 - Listar todos os livros cadastrados    *")
@@ -15,6 +16,7 @@ class livros:
     listaLivros = []
     totalLivros = 0
     
+    # 1 - Cadastrar livro 
     def __init__(self, titulo, autor, anoPublicacao):
         self.titulo = titulo
         self.autor = autor
@@ -22,10 +24,11 @@ class livros:
         
         livros.listaLivros.append(self)
         livros.totalLivros += 1
-        
+    
+    # 2 - Procurar por livro
     def procurarLivro():
-        pesquisar = input("Insira o Titulo/Autor do livro que deseja procurar: ")
-        
+        pesquisar = input("\nInsira o Titulo/Autor do livro que deseja procurar: ")
+        cont = 1
         for i in livros.listaLivros:
             if i.titulo == pesquisar or i.autor == pesquisar:
                 print("\n**Livro Encontrado**")
@@ -33,10 +36,22 @@ class livros:
                 print(f"Titulo: {i.titulo}")
                 print(f"Autor: {i.autor}")
                 print(f"Ano de Publicação: {i.anoPublicacao}")
-                break
+                return
             
-            print("\n**Livro Não Encontrado**")
-                
+            cont += 1
+            
+        print("\n**Livro Não Encontrado**")
+    
+    # 3 - Excluir livro             
+    def excluirLivro():
+        opc = int(input("Insira o Nº do Livro que deseja excluir: "))
+        livros.listaLivros.pop(opc - 1)
+    
+    # 4 - Ordenar livros
+    def ordenarLivros():
+        
+        
+    # 5 - Listar todos os livros cadastrados
     def listarLivros():
         cont = 1
         for i in livros.listaLivros:
@@ -45,7 +60,9 @@ class livros:
             print(f"Autor: {i.autor}")
             print(f"Ano de Publicação: {i.anoPublicacao}")
             print()
-            cont += 1 
+            cont += 1
+
+# Mantem o Porgrama a Funcionar
 while(True):
     mostrarMenu()
         
@@ -58,10 +75,14 @@ while(True):
             anoPublicacao = input("Ano de Publicação: ")
             
             a = livros(titulo, autor, anoPublicacao)
-            
+        
         case "2":
             livros.procurarLivro()
-            
+        
+        case "3":
+            livros.listarLivros()
+            livros.excluirLivro()
+        
         case "5":
             livros.listarLivros()
             
