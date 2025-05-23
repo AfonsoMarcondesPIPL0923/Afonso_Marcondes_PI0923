@@ -99,7 +99,7 @@ while(True):
         # 4 - Ordenar livros
         case "4":
             livros.ordenarLivros()
-            print("\n\n**Livros Ordenados**")
+            print("\n**Livros Ordenados**")
             
         # 5 - Listar todos os livros cadastrados    
         case "5":
@@ -107,7 +107,7 @@ while(True):
         
         # x - Parar Programa
         case "x":
-            print("\n\n**Programa Encerrado**")
+            print("\n**Programa Encerrado**")
             break
         
         case _:
