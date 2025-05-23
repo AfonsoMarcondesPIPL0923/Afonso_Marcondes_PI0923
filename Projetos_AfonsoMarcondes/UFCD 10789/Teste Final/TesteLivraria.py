@@ -50,7 +50,7 @@ class livros:
     
     # 4 - Ordenar livros
     def ordenarLivros():
-        livros.sort(key=titulo)
+        livros.listaLivros.sort(key=lambda livro: livro.titulo)
         
         
     # 5 - Listar todos os livros cadastrados
@@ -87,6 +87,7 @@ while(True):
         
         case "4":
             livros.ordenarLivros()
+            
         case "5":
             livros.listarLivros()
             
