@@ -73,7 +73,10 @@ while(True):
     match escolha:
         # 1 - Cadastrar livro
         case "1":
-            
+            # Impede que sejam criados mais de 100 livros
+            if livros.totalLivros == 100:
+                print("\n** Já Existem 100 Livros Registrados **")
+                continue
             titulo = input("Titulo: ")
             autor = input("Autor: ")
             
