@@ -69,31 +69,46 @@ while(True):
     mostrarMenu()
         
     escolha = input("Insira a sua escolha: ")
-
+    
     match escolha:
+        # 1 - Cadastrar livro
         case "1":
+            
             titulo = input("Titulo: ")
             autor = input("Autor: ")
-            anoPublicacao = input("Ano de Publicação: ")
             
-            a = livros(titulo, autor, anoPublicacao)
-        
+            # Garante que recebe um numero
+            while True: 
+                try:
+                    anoPublicacao = int(input("Ano de Publicação: "))
+            
+                    a = livros(titulo, autor, anoPublicacao)
+                    break
+                except ValueError:
+                    print("\n**Valor Invalido**\n")
+                    
+        # 2 - Procurar por livro
         case "2":
             livros.procurarLivro()
         
+        # 3 - Excluir livro
         case "3":
             livros.listarLivros()
             livros.excluirLivro()
         
+        # 4 - Ordenar livros
         case "4":
             livros.ordenarLivros()
+            print("\n\n**Livros Ordenados**")
             
+        # 5 - Listar todos os livros cadastrados    
         case "5":
             livros.listarLivros()
-            
+        
+        # x - Parar Programa
         case "x":
             print("\n\n**Programa Encerrado**")
             break
-            
+        
         case _:
             print("\n**Entrada Invalida**")
