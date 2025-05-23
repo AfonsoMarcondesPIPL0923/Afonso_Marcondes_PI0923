@@ -36,6 +36,7 @@ class livros:
                 print(f"Titulo: {i.titulo}")
                 print(f"Autor: {i.autor}")
                 print(f"Ano de Publicação: {i.anoPublicacao}")
+                print("__________________________________________________")
                 return
             
             cont += 1
@@ -49,6 +50,7 @@ class livros:
     
     # 4 - Ordenar livros
     def ordenarLivros():
+        livros.sort(key=titulo)
         
         
     # 5 - Listar todos os livros cadastrados
@@ -59,7 +61,7 @@ class livros:
             print(f"Titulo: {i.titulo}")
             print(f"Autor: {i.autor}")
             print(f"Ano de Publicação: {i.anoPublicacao}")
-            print()
+            print("__________________________________________________")
             cont += 1
 
 # Mantem o Porgrama a Funcionar
@@ -83,6 +85,8 @@ while(True):
             livros.listarLivros()
             livros.excluirLivro()
         
+        case "4":
+            livros.ordenarLivros()
         case "5":
             livros.listarLivros()
             
