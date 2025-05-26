@@ -60,7 +60,7 @@ def lerNumero(num):
         
         print("____________________________________")
         
-        # Parar de 10 em 10
+        # Para de 10 em 10
         if cont == 10:
             cont = 0
             parar = input("\nInsira [PARA] para parar, qualquer tecla para continuar: ")
@@ -148,11 +148,13 @@ def tabuada():
             
         print("_________________")
         
+        # Para de 20 em 20
         if cont == 20:
             cont = 0
             parar = input("\nInsira [PARA] para parar, qualquer tecla para continuar: ")
             if parar.lower() == "para":
                 return
+            
 # Mantem o Programa em Execução
 while True:
     # Declaração de variaveis
