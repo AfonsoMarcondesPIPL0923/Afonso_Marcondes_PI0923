@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
- 
+
 #define MAX_CONTATOS 100
 #define MAX_OBSERVACOES 50
- 
+
 typedef struct {
     char nome[50];
     char apelido[50];
@@ -12,12 +12,12 @@ typedef struct {
     char email[50];
     char observacoes[MAX_OBSERVACOES + 1];
 } Contato;
- 
+
 typedef struct {
     Contato contatos[MAX_CONTATOS];
     int total;
 } Agenda;
- 
+
 void exibir_menu();
 void registrar_contato(Agenda *agenda);
 void listar_contatos(const Agenda *agenda);
@@ -27,17 +27,17 @@ void eliminar_contato(Agenda *agenda);
 void exportar_contactos(const Agenda *agenda);
 void importar_contactos(Agenda *agenda);
 void finalizar_programa(const Agenda *agenda);
- 
+
 int main() {
     Agenda agenda;
     agenda.total = 0;
     char comando[10];
- 
+
     while (1) {
         exibir_menu();
         printf("Insira a Sua Escolha: ");
         scanf("%s", comando);
- 
+
         if (strcasecmp(comando, "RC") == 0) {
             registrar_contato(&agenda);
         } else if (strcasecmp(comando, "PC") == 0) {
@@ -59,10 +59,9 @@ int main() {
             printf("Comando inválido. Tente novamente.\n");
         }
     }
- 
     return 0;
 }
- 
+
 void exibir_menu() {
     printf("\nComandos disponíveis:\n");
     printf(" - RC   - Registrar Contactos - <Nome> <Apelido> <Telefone> <Email> <Observacoes>\n");
@@ -74,38 +73,38 @@ void exibir_menu() {
     printf(" - IMPC - Importar Contactos\n");
     printf(" - XXX  - Sair\n\n");
 }
- 
+
 void registrar_contato(Agenda *agenda) {
     if (agenda->total >= MAX_CONTATOS) {
         printf("Agenda cheia. Não é possível adicionar mais contactos.\n");
         return;
     }
- 
+
     Contato novo;
-    scanf(" %49s %49s %19d %49s %[^\n]",
+    scanf(" %49s %49s %19s %49s %[^\n]",
           novo.nome,
           novo.apelido,
           novo.telefone,
           novo.email,
           novo.observacoes);
- 
+
     novo.observacoes[MAX_OBSERVACOES] = '\0';
- 
+
     for (int i = 0; i < agenda->total; i++) {
         if (strcasecmp(agenda->contatos[i].nome, novo.nome) == 0) {
             printf("Contacto existente com o número %d\n", i + 1);
             return;
         }
     }
- 
+
     agenda->contatos[agenda->total++] = novo;
     printf("Contacto registado com sucesso\n");
 }
- 
+
 void procurar_contato(const Agenda *agenda) {
     char nome[50];
     scanf(" %49s", nome);
- 
+
     for (int i = 0; i < agenda->total; i++) {
         if (strcasecmp(agenda->contatos[i].nome, nome) == 0) {
             printf("Nome: %s\n", agenda->contatos[i].nome);
@@ -116,16 +115,16 @@ void procurar_contato(const Agenda *agenda) {
             return;
         }
     }
- 
+
     printf("Contacto inexistente.\n");
 }
- 
+
 void listar_contatos(const Agenda *agenda) {
     if (agenda->total == 0) {
         printf("Agenda sem contactos.\n");
         return;
     }
- 
+
     for (int i = 0; i < agenda->total; i++) {
         printf("[%d] Nome: %s\n", i + 1, agenda->contatos[i].nome);
         printf("    Apelido: %s\n", agenda->contatos[i].apelido);
@@ -134,18 +133,18 @@ void listar_contatos(const Agenda *agenda) {
         printf("    Observacoes: %s\n", agenda->contatos[i].observacoes);
     }
 }
- 
+
 void atualizar_contato(Agenda *agenda) {
     char nome[50];
     scanf(" %49s", nome);
- 
+
     for (int i = 0; i < agenda->total; i++) {
         if (strcasecmp(agenda->contatos[i].nome, nome) == 0) {
             int opcao;
             do {
                 printf("\n1 - Apelido\n2 - Telefone\n3 - Email\n4 - Observacoes\n5 - Sair\nOpcao: ");
                 scanf("%d", &opcao);
- 
+
                 switch (opcao) {
                     case 1:
                         printf("Novo apelido: ");
@@ -174,19 +173,19 @@ void atualizar_contato(Agenda *agenda) {
                     default:
                         printf("Opcao inválida.\n");
                 }
- 
+
             } while (opcao != 5);
             return;
         }
     }
- 
+
     printf("Contacto inexistente.\n");
 }
- 
+
 void eliminar_contato(Agenda *agenda) {
     char nome[50];
     scanf(" %49s", nome);
- 
+
     for (int i = 0; i < agenda->total; i++) {
         if (strcasecmp(agenda->contatos[i].nome, nome) == 0) {
             for (int j = i; j < agenda->total - 1; j++) {
@@ -197,20 +196,25 @@ void eliminar_contato(Agenda *agenda) {
             return;
         }
     }
- 
+
     printf("Contacto não encontrado\n");
 }
- 
+
 void exportar_contactos(const Agenda *agenda) {
     char path[100];
-    snprintf(path, sizeof(path), "%s/Desktop/Contactos.txt", getenv("HOME"));
+    const char *userProfile = getenv("USERPROFILE");
+    if (!userProfile) {
+        printf("Não foi possível encontrar a pasta do utilizador.\n");
+        return;
+    }
+    snprintf(path, sizeof(path), "%s/Desktop/Contactos.txt", userProfile);
     FILE *f = fopen(path, "w");
- 
+
     if (!f) {
         printf("Erro ao criar ficheiro!\n");
         return;
     }
- 
+
     for (int i = 0; i < agenda->total; i++) {
         fprintf(f, "%s;%s;%s;%s;%s\n",
                 agenda->contatos[i].nome,
@@ -219,21 +223,26 @@ void exportar_contactos(const Agenda *agenda) {
                 agenda->contatos[i].email,
                 agenda->contatos[i].observacoes);
     }
- 
+
     fclose(f);
     printf("Exportados %d contactos para: %s\n", agenda->total, path);
 }
- 
+
 void importar_contactos(Agenda *agenda) {
     char path[100];
-    snprintf(path, sizeof(path), "%s/Desktop/Contactos.txt", getenv("HOME"));
+    const char *userProfile = getenv("USERPROFILE");
+    if (!userProfile) {
+        printf("Não foi possível encontrar a pasta do utilizador.\n");
+        return;
+    }
+    snprintf(path, sizeof(path), "%s/Desktop/Contactos.txt", userProfile);
     FILE *f = fopen(path, "r");
- 
+
     if (!f) {
         printf("Erro ao abrir ficheiro!\n");
         return;
     }
- 
+
     int importados = 0;
     while (agenda->total < MAX_CONTATOS &&
            fscanf(f, " %49[^;];%49[^;];%19[^;];%49[^;];%50[^\n]\n",
@@ -245,11 +254,11 @@ void importar_contactos(Agenda *agenda) {
         importados++;
         agenda->total++;
     }
- 
+
     fclose(f);
     printf("Foram importados %d contactos\n", importados);
 }
- 
+
 void finalizar_programa(const Agenda *agenda) {
     printf("A guardar a agenda...\n");
     printf("Sayonara!\n");
