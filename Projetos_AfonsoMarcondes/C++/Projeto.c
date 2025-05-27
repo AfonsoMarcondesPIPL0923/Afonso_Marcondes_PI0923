@@ -82,7 +82,7 @@ void registrar_contato(Agenda *agenda) {
     }
  
     Contato novo;
-    scanf(" %49s %49s %19s %49s %[^\n]",
+    scanf(" %49s %49s %19d %49s %[^\n]",
           novo.nome,
           novo.apelido,
           novo.telefone,
