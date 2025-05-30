@@ -24,8 +24,26 @@ class fornecedor:
         self.Telefone = Telefone
         self.NIF = NIF
         self.ValorFornecido = ValorFornecido
-        self.Desconto = self.ValorFornecido
-        self.ValorFinal = self.ValorFornecido
+        
+        # Calcula o Desconto
+        
+        # Se o valor fornecido for entre 1.000 e 5.000 €, aplica 8% de desconto;
+        if self.ValorFornecido >= 1000 and self.ValorFornecido <= 5000:
+            self.Desconto = 0.92
+        
+        # Se entre 5.001 e 10.000 €, aplica 12%
+        elif self.ValorFornecido > 5000 and self.ValorFornecido <= 10000:
+            self.Desconto = 0.88
+        
+        # Se superior a 10.000 €, aplica 18%
+        elif self.ValorFornecido > 10000:
+            self.Desconto = 0.82
+            
+        else:
+            self.Desconto = 0
+            
+            
+        self.ValorFinal = self.ValorFornecido * self.Desconto
         
         fornecedor.listaFornecedores.append(self)
         fornecedor.contFornecedores += 1
@@ -43,9 +61,14 @@ class fornecedor:
             print(f"Endereco: {i.Endereco}")
             print(f"Telefone: {i.Telefone}")
             print(f"NIF: {i.NIF}")
-            print(f"ValorFornecido: {i.ValorFornecido}")
-            print(f"Desconto: {i.Desconto}")
-            print(f"ValorFinal: {i.ValorFinal}")
+            print(f"ValorFornecido: {i.ValorFornecido:.2f} €")
+            
+            if i.Desconto == 0:
+                print(f"Desconto: 0€")
+            else:
+                print(f"Desconto: {((1 - i.Desconto) * 100):.2f} €")
+                
+            print(f"ValorFinal: {i.ValorFinal:.2f} €")
             print("_________________________")
 
     @classmethod
@@ -70,9 +93,14 @@ class fornecedor:
                 print(f"Endereco: {i.Endereco}")
                 print(f"Telefone: {i.Telefone}")
                 print(f"NIF: {i.NIF}")
-                print(f"ValorFornecido: {i.ValorFornecido}")
-                print(f"Desconto: {i.Desconto}")
-                print(f"ValorFinal: {i.ValorFinal}")
+                print(f"ValorFornecido: {i.ValorFornecido:.2f} €")
+                
+                if i.Desconto == 0:
+                    print(f"Desconto: 0€")
+                else:
+                    print(f"Desconto: {((1 - i.Desconto) * 100):.2f} €")
+                    
+                print(f"ValorFinal: {i.ValorFinal:.2f} €")
                 print("_________________________")
                 return
             
